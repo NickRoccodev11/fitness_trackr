@@ -4,10 +4,8 @@ import Activities from './components/Activities';
 import Routines from './components/Routines';
 import Navbar from './components/Navbar';
 
-
 function App() {
   const [activities, setActivities] = useState([]);
-
 
   useEffect(() => {
     const fetchActivities = async () => {

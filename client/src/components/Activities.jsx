@@ -35,11 +35,6 @@ const Activities = ({ activities, setActivities }) => {
                       show description</button><br />
                   </>
               }
-
-
-
-
-
               <button onClick={() => handleDelete(activity.id)} >
                 delete activity</button>
             </div>

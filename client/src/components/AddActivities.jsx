@@ -21,7 +21,6 @@ const AddActivities = ({ setDisplayAddForm, activities, setActivities }) => {
     setDisplayAddForm(false);
   }
 
-
   return (
     <div className='add-activity' >
       <h3>New Activity:</h3>

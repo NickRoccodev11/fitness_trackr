@@ -42,6 +42,13 @@ const Routines = ({ activities }) => {
     return nameAndCounts
   }
 
+  const showGoal = async (id) => {
+    const res = await fetch(`http://localhost:8080/api/v1/routines/${id}`)
+    const routineGoal = await res.json()
+    setGoal(routineGoal)
+  }
+
+
   const handleDelete = async (id) => {
     const res = await fetch(`http://localhost:8080/api/v1/routines/${id}`, {
       method: 'DELETE'
@@ -50,25 +57,16 @@ const Routines = ({ activities }) => {
     setRoutines(updatedRoutinesData);
   }
 
-  const showGoal = async (id) => {
-    const res = await fetch(`http://localhost:8080/api/v1/routines/${id}`)
-    const routineGoal = await res.json()
-    setGoal(routineGoal)
-  }
-
   return (
     <div className='routines'>
       {
         routines.length &&
         routines.map(routine => {
-
           const associatedActivities = getAssociatedActivities(routine.id)
-
           return (
             routine.is_public &&
             <div className='single-routine'>
               <h3> Routine #{routine.id}</h3>
-
               {
                 goal.id === routine.id ?
                   <p className='description'>{routine.goal}</p> :
@@ -76,7 +74,6 @@ const Routines = ({ activities }) => {
                     <button onClick={() => showGoal(routine.id)}>show goal</button><br />
                   </>
               }
-
               {
                 associatedActivities.length > 0 &&
                 <div>
@@ -89,7 +86,6 @@ const Routines = ({ activities }) => {
                     }
                   </ul>
                 </div>
-
               }
               {
                 displayActivityForm ?
@@ -105,7 +101,6 @@ const Routines = ({ activities }) => {
                       Add</button><br />
                   </div>
               }
-
               <button onClick={() => handleDelete(routine.id)}>
                 delete routine</button>
             </div>
