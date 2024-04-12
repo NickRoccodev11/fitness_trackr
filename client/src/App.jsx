@@ -7,14 +7,13 @@ import Navbar from './components/Navbar';
 
 function App() {
   const [activities, setActivities] = useState([]);
-  const [routinesActivities, setRoutinesActivities] = useState([])
+
 
   useEffect(() => {
     const fetchActivities = async () => {
       const res = await fetch('http://localhost:8080/api/v1/activities')
-      const data = await res.json();
-      setActivities(data.allActivities)
-      setRoutinesActivities(data.allRoutinesActivities)
+      const allActivities = await res.json();
+      setActivities(allActivities)
     }
     fetchActivities()
   }, [])
@@ -30,8 +29,6 @@ function App() {
             activities={activities} />}
         />
         <Route path="/routines" element={<Routines
-          setRoutinesActivities={setRoutinesActivities}
-          routinesActivities={routinesActivities}
           activities={activities} />}
         />
       </Routes>

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import AddActivities from './AddActivities';
 
 const Activities = ({ activities, setActivities }) => {
-  const [addForm, setAddForm] = useState(false)
+  const [displayAddForm, setDisplayAddForm] = useState(false)
   const [description, setDescription] = useState({})
 
   const handleDelete = async (id) => {
@@ -47,13 +47,13 @@ const Activities = ({ activities, setActivities }) => {
         })
       }
       {
-        addForm ?
+        displayAddForm ?
           <AddActivities
-            setAddForm={setAddForm}
+            setDisplayAddForm={setDisplayAddForm}
             activities={activities}
             setActivities={setActivities}
           /> :
-          <button onClick={() => setAddForm(true)}>Add a new activity</button>
+          <button onClick={() => setDisplayAddForm(true)}>Add a new activity</button>
       }
     </div>
   )

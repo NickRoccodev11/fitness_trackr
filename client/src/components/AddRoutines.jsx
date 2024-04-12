@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-const AddRoutines = ({ setNewRoutine, setAddForm }) => {
+const AddRoutines = ({ setRoutines, routines, setDisplayAddForm }) => {
   const [isChecked, setIsChecked] = useState(false)
   const [goal, setGoal] = useState('')
 
@@ -19,10 +19,10 @@ const AddRoutines = ({ setNewRoutine, setAddForm }) => {
       })
     })
     const newRoutineData = await res.json();
-    setNewRoutine(newRoutineData);
+    setRoutines([...routines, newRoutineData])
     setIsChecked(false);
     setGoal("");
-    setAddForm(false);
+    setDisplayAddForm(false);
   }
 
   return (

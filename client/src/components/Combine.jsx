@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-const Combine = ({ setAddActivity, activities, routineId, routinesActivities, setRoutinesActivities}) => {
+const Combine = ({ setDisplayActivityForm, activities, routineId, routinesActivities, setRoutinesActivities }) => {
   const [selectedActivityId, setSelectedActivityId] = useState(null)
   const [count, setCount] = useState(null)
 
@@ -16,12 +16,10 @@ const Combine = ({ setAddActivity, activities, routineId, routinesActivities, se
       })
     })
     const routineActivityData = await res.json();
-    console.log(routineActivityData)
-    console.log(routinesActivities)
     setRoutinesActivities([...routinesActivities, routineActivityData])
     setSelectedActivityId(null)
     setCount(null)
-    setAddActivity(false)
+    setDisplayActivityForm(false)
   }
 
   return (

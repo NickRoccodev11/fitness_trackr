@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-const AddActivities = ({ setAddForm, activities, setActivities }) => {
+const AddActivities = ({ setDisplayAddForm, activities, setActivities }) => {
   const [name, setName] = useState("")
   const [description, setDescription] = useState("")
 
@@ -18,7 +18,7 @@ const AddActivities = ({ setAddForm, activities, setActivities }) => {
     setActivities([...activities, newActivityData])
     setName("");
     setDescription("");
-    setAddForm(false);
+    setDisplayAddForm(false);
   }
 
 

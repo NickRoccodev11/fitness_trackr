@@ -33,12 +33,12 @@ app.get("/", (req, res) => {
 //routes
 app.get("/api/v1/activities", async (req, res) => {
   const allActivities = await getActivities();
-  const allRoutinesActivities = await getRoutinesActivities();
-  res.send({ allActivities, allRoutinesActivities });
+
+  res.send(allActivities);
 });
 
 app.get("/api/v1/activities/:id", async (req, res) => {
-  const {id} = req.params;
+  const { id } = req.params;
   const singleActivity = await getActivity(id);
   res.send(singleActivity);
 });
@@ -49,7 +49,7 @@ app.get("/api/v1/routines", async (req, res) => {
 });
 
 app.get("/api/v1/routines/:id", async (req, res) => {
-  const {id} = req.params;
+  const { id } = req.params;
   const singleRoutine = await getRoutine(id);
   res.send(singleRoutine);
 });
@@ -64,6 +64,11 @@ app.post("/api/v1/activities", async (req, res) => {
   const { name, description } = req.body;
   const activity = await createActivity(name, description);
   res.send(activity);
+});
+
+app.get("/api/v1/routinesactivities", async (req, res) => {
+  const allRoutinesActivities = await getRoutinesActivities();
+  res.send(allRoutinesActivities);
 });
 
 app.post("/api/v1/routinesactivities", async (req, res) => {

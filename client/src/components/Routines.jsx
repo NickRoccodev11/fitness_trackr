@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react'
 import AddRoutines from './AddRoutines'
 import Combine from './Combine'
 
-const Routines = ({ activities, routinesActivities, setRoutinesActivities }) => {
+const Routines = ({ activities }) => {
   const [routines, setRoutines] = useState([])
-  const [addForm, setAddForm] = useState(false)
-  const [newRoutine, setNewRoutine] = useState({})
-  const [addActivity, setAddActivity] = useState(false)
+  const [routinesActivities, setRoutinesActivities] = useState([])
+  const [displayAddForm, setDisplayAddForm] = useState(false)
+  const [displayActivityForm, setDisplayActivityForm] = useState(false)
   const [goal, setGoal] = useState({})
 
   useEffect(() => {
@@ -15,8 +15,14 @@ const Routines = ({ activities, routinesActivities, setRoutinesActivities }) => 
       const routineData = await res.json()
       setRoutines(routineData)
     }
+    const fetchRoutinesActivities = async () => {
+      const res = await fetch('http://localhost:8080/api/v1/routinesactivities')
+      const routineActivityData = await res.json()
+      setRoutinesActivities(routineActivityData)
+    }
     fetchRoutines();
-  }, [newRoutine])
+    fetchRoutinesActivities();
+  }, [])
 
   const getAssociatedActivities = (routineId) => {
     const idCountMap = {};
@@ -34,10 +40,7 @@ const Routines = ({ activities, routinesActivities, setRoutinesActivities }) => 
       })
     }
     return nameAndCounts
-
   }
-
-
 
   const handleDelete = async (id) => {
     const res = await fetch(`http://localhost:8080/api/v1/routines/${id}`, {
@@ -53,13 +56,14 @@ const Routines = ({ activities, routinesActivities, setRoutinesActivities }) => 
     setGoal(routineGoal)
   }
 
-
   return (
     <div className='routines'>
       {
         routines.length &&
         routines.map(routine => {
+
           const associatedActivities = getAssociatedActivities(routine.id)
+
           return (
             routine.is_public &&
             <div className='single-routine'>
@@ -88,16 +92,17 @@ const Routines = ({ activities, routinesActivities, setRoutinesActivities }) => 
 
               }
               {
-                addActivity ?
+                displayActivityForm ?
                   <Combine
                     routineId={routine.id}
                     routinesActivities={routinesActivities}
                     setRoutinesActivities={setRoutinesActivities}
                     activities={activities}
-                    setAddActivity={setAddActivity} /> :
+                    setDisplayActivityForm={setDisplayActivityForm} /> :
                   <div>
                     <span>Add an activity to this routine:</span>
-                    <button onClick={() => setAddActivity(true)}>Add</button><br />
+                    <button onClick={() => setDisplayActivityForm(true)}>
+                      Add</button><br />
                   </div>
               }
 
@@ -108,11 +113,13 @@ const Routines = ({ activities, routinesActivities, setRoutinesActivities }) => 
         })
       }
       {
-        addForm ?
+        displayAddForm ?
           <AddRoutines
-            setAddForm={setAddForm}
-            setNewRoutine={setNewRoutine} /> :
-          <button onClick={() => setAddForm(true)}>Add Routine</button>
+            setDisplayAddForm={setDisplayAddForm}
+            routines={routines}
+            setRoutines={setRoutines}
+          /> :
+          <button onClick={() => setDisplayAddForm(true)}>Add Routine</button>
       }
     </div>
   )
