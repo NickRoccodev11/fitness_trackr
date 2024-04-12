@@ -1,0 +1,34 @@
+body {
+  background-color: rgb(116, 116, 196);
+}
+
+nav>* {
+  margin-left: 20px;
+}
+
+nav {
+  background-color: rgb(164, 164, 218);
+}
+
+.single-routine,
+.single-activity {
+  background-color: rgb(164, 164, 218);
+  border: 2px solid rgb(12, 12, 71);
+  padding: 25px;
+  margin: 5px;
+}
+
+button {
+  background-color: rgb(136, 173, 205);
+  box-shadow: 3px 3px 3px rgb(12, 12, 71);
+  margin-bottom: 20px;
+}
+
+.add-routine,
+.add-activity {
+  background-color: rgb(171, 194, 220);
+}
+
+.description {
+  font-size: x-large;
+}
